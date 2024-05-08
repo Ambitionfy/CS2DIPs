@@ -43,7 +43,7 @@ def main():
     parser.add_argument("--delta", type=float, default=3)
     parser.add_argument("--kernel", type=float, default=8)
     parser.add_argument("--factor", type=int, default=8)
-    parser.add_argument("--epoches", type=int, default=5)
+    parser.add_argument("--epoches", type=int, default=5000)
     parser.add_argument("--nettype", type=str, default='dip')
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--rank1", type=int, default=35)
