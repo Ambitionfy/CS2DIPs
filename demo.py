@@ -132,7 +132,7 @@ def main():
         G_temp[0] = G[0] + G_clone[0].normal_() * args.reg_noise_std
         G_temp[1] = G[1] + G_clone[1].normal_() * args.reg_noise_std
 
-        Z, UZ, U = Net[0](X_temp, G_temp[0], Y_temp, G_temp[1], idx)
+        Z, UZ, U = Net[0](X_temp, G_temp[0], Y_temp, G_temp[1])
 
         total_loss = l1(Y, torch.tensordot(P, Z, dims=([1],[0])))
         temp = SR_util.H_z(Z, args.factor, fft_B)

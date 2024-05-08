@@ -338,7 +338,7 @@ class GDIP2d(nn.Module):
         self.DAU = DAU(num_channels, act_fun='LeakyReLU')
 
         
-    def forward(self, Y, Z, idx):
+    def forward(self, Y, Z):
         Y0 = self.yconv0(Y)
         Y1 = self.decode(Y0)
         Y2 = self.decode(Y1)
@@ -501,7 +501,7 @@ class GDIP1d(nn.Module):
         self.DAU = DAU(num_channels, mode='1D', act_fun='LeakyReLU')
 
         
-    def forward(self, Y, Z, idx):
+    def forward(self, Y, Z):
         Y0 = self.yconv0(Y)
         Y1 = self.decode(Y0)
         Y2 = self.decode(Y1)
@@ -559,10 +559,10 @@ class CGDIP(nn.Module):
                             num_output_channels=num_output_channels, num_channels=num_channels, num_channels_skip=num_channels_skip)
         self.relu = nn.ReLU()
         
-    def forward(self, X_temp, G_temp1d, Y_temp, G_temp2d, idx):
+    def forward(self, X_temp, G_temp1d, Y_temp, G_temp2d):
         U = [1,2]
-        U[0] = self.net1d(X_temp, G_temp1d, idx).reshape(self.num_output_channels, self.data_shape[0])
-        U[1] = self.net2d(Y_temp, G_temp2d, idx).reshape(self.num_output_channels, self.data_shape[1], self.data_shape[2])
+        U[0] = self.net1d(X_temp, G_temp1d).reshape(self.num_output_channels, self.data_shape[0])
+        U[1] = self.net2d(Y_temp, G_temp2d).reshape(self.num_output_channels, self.data_shape[1], self.data_shape[2])
 
         U[1] = torch.div(U[1], torch.sum(U[1], 0)+1e-7)
         UZ = [1,2]
